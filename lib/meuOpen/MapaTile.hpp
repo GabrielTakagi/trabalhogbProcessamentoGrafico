@@ -49,7 +49,8 @@ private:
     glm::mat4 mapa2D;               // Matriz de projeção ortogonal 2D
     Shader shaderPrograme;          // Programa de shaders para renderização
     std::vector<std::vector<int>> terreno;  // Matriz que armazena os IDs de cada tile do mapa
-    
+    std::string arquivo;
+
     //  VARIÁVEIS DE TEXTURA 
     GLuint TID_tileset;             // ID da textura do tileset (chão e objetos)
     GLuint TID_personagem;          // ID da textura da sprite sheet do personagem
@@ -72,4 +73,5 @@ private:
     bool carregarDeArquivo(const std::string& caminho); // Parse do arquivo .txt com configuração do mapa
     bool podeCaminhar(int id);                      // Verifica se um tile pode ser pisado
     void verificarInteracao();                      // Verifica colisões com objetos (moedas, lava, saída)
+    void resetarMapa();
 };

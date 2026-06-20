@@ -16,10 +16,10 @@ void processarEntrada(GLFWwindow* window, MapaTile& mapa) {
     bool pressionouBotao = false;
 
     // Processa as setas direcionais do teclado
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) { moveI += 1; pressionouBotao = true; }
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) { moveI -= 1; pressionouBotao = true; }
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) { moveC -= 1; pressionouBotao = true; }
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) { moveC += 1; pressionouBotao = true; }
+    if (glfwGetKey(window, GLFW_KEY_W) || glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) { moveI += 1; pressionouBotao = true; }
+    if (glfwGetKey(window, GLFW_KEY_S) || glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS ) { moveI -= 1; pressionouBotao = true; }
+    if (glfwGetKey(window, GLFW_KEY_A) || glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) { moveC -= 1; pressionouBotao = true; }
+    if (glfwGetKey(window, GLFW_KEY_D) || glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) { moveC += 1; pressionouBotao = true; }
 
     //Processa setas diagonais
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) { moveI += 1; moveC += 1; pressionouBotao = true; }
@@ -42,6 +42,9 @@ void processarEntrada(GLFWwindow* window, MapaTile& mapa) {
     if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) { mapa.alterarTileAtual(1); ultimoTempo = tempoAtual; } 
     if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) { mapa.alterarTileAtual(2); ultimoTempo = tempoAtual; } 
     if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) { mapa.alterarTileAtual(3); ultimoTempo = tempoAtual; } 
+    if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) { mapa.alterarTileAtual(4); ultimoTempo = tempoAtual; } 
+    if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) { mapa.alterarTileAtual(5); ultimoTempo = tempoAtual; } 
+    if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS) { mapa.alterarTileAtual(6); ultimoTempo = tempoAtual; } 
 }
 
 int main() {

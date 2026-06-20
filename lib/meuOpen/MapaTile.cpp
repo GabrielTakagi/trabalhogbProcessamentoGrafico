@@ -11,6 +11,7 @@ MapaTile::MapaTile(const std::string& caminhoArquivo) {
     playerI = 1;             // Posição inicial: linha 1
     playerC = 1;             // Posição inicial: coluna 1
     direcaoPlayer = 0;       // Jogador começa olhando para baixo (Sul)
+    arquivo = caminhoArquivo;
     carregarDeArquivo(caminhoArquivo);  // Lê o arquivo mapa.txt e popula as estruturas de dados
 }
 
@@ -48,7 +49,7 @@ void MapaTile::carregarShader() {
 }
 
 //  renderiza o mapa a cada frame, desenhando o chão, objetos e personagem na ordem correta para criar a ilusão de profundidade em um mapa isométrico 
-// Esta é a função mais importante: renderiza todo o mapa a cada frame
+//  renderiza todo o mapa a cada frame
 void MapaTile::carregarMapa() {
     // Ativa o programa de shader para renderização
     glUseProgram(shaderPrograme.get_program());
@@ -125,9 +126,9 @@ void MapaTile::carregarMapa() {
             // Verifica se o personagem está nesta célula
             if (i == playerI && c == playerC) {
                 glUniform1i(loc_UsarTextura, GL_TRUE);
-                glBindTexture(GL_TEXTURE_2D, TID_personagem); // Muda para a sprite sheet do monge
+                glBindTexture(GL_TEXTURE_2D, TID_personagem); // Muda para a sprite sheet do personagem
                 
-                // A imagem do monge tem 8 frames de animação lado a lado (1 por direção)
+                // A imagem do personagem tem 8 frames de animação lado a lado (1 por direção)
                 float escalaSpriteX = 1.0f / 8.0f;
                 
                 // Configura qual frame exibir baseado na direção (direcaoPlayer vai de 0 a 7)
@@ -160,8 +161,7 @@ void MapaTile::desenharTile(GLfloat posX, GLfloat posY, int cor) {
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-
-// 4. logica do jogo: controle do jogador, detecção de colisoes e interações com objetos
+// logica do jogo: controle do jogador, detecção de colisoes e interações com objetos
 void MapaTile::moverPlayer(int deltaI, int deltaC) {
     // Se o jogo terminou (venceu ou gameOver(nisso python e melhor, prefiro or and e not)), congela os controles
     if (gameOver || venceu) return;
@@ -192,8 +192,16 @@ void MapaTile::moverPlayer(int deltaI, int deltaC) {
             
             // Verifica se caiu na lava (ID 3 no mapa)
             if (terreno[playerI][playerC] == 3) {
-                gameOver = true;
-                printf("GAME OVER! Voce caiu na lava e derreteu.\n");
+                //gameOver = true;
+                printf("GAME OVER! Voce caiu na lava e derreteu.\n");//aqui
+                resetarMapa();
+            }
+            if (terreno[playerI][playerC] == 6) {
+                //gameOver = true;
+                printf("SAIDA ERRADA!\n");
+                alterarTileAtual(1);
+                //resetarMapa();
+
             }
 
             // Verifica interações com objetos (moedas, saída)
@@ -228,23 +236,41 @@ void MapaTile::verificarInteracao() {
             } 
             else if (obj.tipo == "LAVA") {
                 // Lava causa game over
-                gameOver = true;
+                //gameOver = true;
                 //printf("test");
                 printf("GAME OVER! Pisou na lava.\n");
+
+                resetarMapa();
+                
             } 
             else if (obj.tipo == "SAIDA") {
                 // Só permite vencer se coletou todas as moedas
                 if (moedasColetadas >= moedasTotal) {
                     //printf("testwin");
-                    venceu = true;
                     printf("VITORIA!\n");
+                    resetarMapa();
                 } else {
                     //printf("testdefeat");
                     printf("Faltam moedas!\n");
                 }
+
             }
         }
     }
+}
+
+//Realiza o Reset do jogo
+void MapaTile::resetarMapa()
+{
+
+    moedasColetadas = 0;
+    moedasTotal = 0;
+    carregarDeArquivo(arquivo);
+    playerC = 1;
+    playerI = 1;
+    
+
+
 }
 
 // Altera o tipo de tile na posição do jogador (modo editor)
@@ -252,7 +278,6 @@ void MapaTile::alterarTileAtual(int novoTipo) {
     terreno[playerI][playerC] = novoTipo;
 }
 
-// FUNÇÕES AUXILIARES (ARQUIVOS E OPENGL)
 // Lê o arquivo mapa.txt e carrega os dados do mapa em memória
 bool MapaTile::carregarDeArquivo(const std::string& caminho) {
     std::ifstream arquivo(caminho);

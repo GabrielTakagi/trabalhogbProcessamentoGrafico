@@ -16,10 +16,16 @@ void processarEntrada(GLFWwindow* window, MapaTile& mapa) {
     bool pressionouBotao = false;
 
     // Processa as setas direcionais do teclado
-    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) { moveI += 1; moveC += 1; pressionouBotao = true; }
-    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) { moveI -= 1; moveC -= 1; pressionouBotao = true; }
-    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) { moveI += 1; moveC -= 1; pressionouBotao = true; }
-    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) { moveI -= 1; moveC += 1; pressionouBotao = true; }
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) { moveI += 1; pressionouBotao = true; }
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) { moveI -= 1; pressionouBotao = true; }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) { moveC -= 1; pressionouBotao = true; }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) { moveC += 1; pressionouBotao = true; }
+
+    //Processa setas diagonais
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) { moveI += 1; moveC += 1; pressionouBotao = true; }
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) { moveI -= 1; moveC -= 1; pressionouBotao = true; }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) { moveI += 1; moveC -= 1; pressionouBotao = true; }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS && glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) { moveI -= 1; moveC += 1; pressionouBotao = true; }
 
     // Se alguma tecla foi pressionada, valida e aplica o movimento
     if (pressionouBotao) {

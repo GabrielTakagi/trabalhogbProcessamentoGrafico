@@ -40,5 +40,18 @@ add_custom_command(TARGET meuAPP POST_BUILD
     COMMENT "Copiando Fragment Shader para a pasta de build..."
 )
 
+add_custom_command(
+    TARGET meuAPP POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory 
+    "${CMAKE_CURRENT_SOURCE_DIR}/img" 
+    "$<TARGET_FILE_DIR:meuAPP>/img"
+)
 
+# Comando para copiar o Fragment Shader
+add_custom_command(TARGET meuAPP POST_BUILD
+    TARGET meuAPP POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    "${CMAKE_CURRENT_SOURCE_DIR}/mapa.txt" 
+    "$<TARGET_FILE_DIR:meuAPP>"
+)
 

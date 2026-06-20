@@ -42,9 +42,6 @@ void processarEntrada(GLFWwindow* window, MapaTile& mapa) {
     if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) { mapa.alterarTileAtual(1); ultimoTempo = tempoAtual; } 
     if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) { mapa.alterarTileAtual(2); ultimoTempo = tempoAtual; } 
     if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) { mapa.alterarTileAtual(3); ultimoTempo = tempoAtual; } 
-    if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) { mapa.alterarTileAtual(4); ultimoTempo = tempoAtual; } 
-    if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) { mapa.alterarTileAtual(5); ultimoTempo = tempoAtual; } 
-    if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS) { mapa.alterarTileAtual(6); ultimoTempo = tempoAtual; } 
 }
 
 int main() {

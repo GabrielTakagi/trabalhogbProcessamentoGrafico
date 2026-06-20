@@ -101,7 +101,7 @@ void MapaTile::carregarMapa() {
                     if (obj.tipo == "MOEDA") {
                         idItem = 0;          // ID 0 no tileset é a moeda
                         // Levanta um pouco para parecer flutuar sobre o chão
-                        alturaItem = posY + 6.0f;
+                        alturaItem = posY + 1.0f;
                     }
                     else if (obj.tipo == "LAVA") {
                         idItem = 3;          // ID 3 no tileset é a lava
